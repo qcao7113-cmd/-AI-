@@ -14,6 +14,10 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  # 仓库名（push 与 workflow_dispatch 均可用），用于拼出 Pages 子路径 /<repo>/
+  REPO_NAME: ${{ github.event.repository.name }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,14 +35,23 @@ jobs:
         run: npm ci
 
       - name: Build
-        # 演示模式：纯静态、无需后端；子路径路由由 main.tsx 自动适配
+        # 演示模式：纯静态、无需后端
+        # VITE_BASE 必须显式设置：GitHub Pages 对未知路径会返回 404.html，
+        # 而 404.html 里的资源路径同样要带 /<repo>/ 前缀，否则会被解析到域名根目录导致白屏。
         run: npm run build
         env:
           VITE_USE_MOCK: 'true'
+          VITE_BASE: /${{ env.REPO_NAME }}/
 
       - name: SPA fallback
         # GitHub Pages 无服务端重写，用 404.html 兜底前端路由
-        run: cp dist/index.html dist/404.html
+        run: |
+          cp dist/index.html dist/404.html
+          echo "--- 资源路径校验 ---"
+          grep -o 'src="[^"]*"' dist/index.html
+          grep -o 'src="[^"]*"' dist/404.html
+          grep -q "src=\"/${REPO_NAME}/assets/" dist/404.html \
+            || { echo "❌ 404.html 资源路径缺少仓库前缀 /${REPO_NAME}/"; exit 1; }
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
