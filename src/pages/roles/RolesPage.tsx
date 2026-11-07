@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { Role } from '@/types'
 import { PERMISSIONS } from '@/utils/permissions'
 import { useAuth, useToast } from '@/context/AppContext'

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { Recipe, RecipeCategory } from '@/types'
 import { CHRONIC_KEYS, CONSTITUTIONS } from '@/lib/seed'
 import { formatDate, formatNumber } from '@/utils/format'

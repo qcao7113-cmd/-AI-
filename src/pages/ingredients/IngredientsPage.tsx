@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { Ingredient } from '@/types'
 import { formatDate, toCsv, downloadFile } from '@/utils/format'
 import { useAuth, useToast } from '@/context/AppContext'

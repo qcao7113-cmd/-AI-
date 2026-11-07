@@ -117,6 +117,20 @@ export interface ChronicPlan {
   updatedAt: string
 }
 
+export type AuditAction = 'create' | 'update' | 'delete' | 'login' | 'export'
+
+/** 审计日志 */
+export interface AuditLog {
+  id: string
+  operator: string
+  action: AuditAction
+  target: string
+  detail: string
+  ip: string
+  result: 'success' | 'fail'
+  createdAt: string
+}
+
 export interface Notification {
   id: string
   title: string

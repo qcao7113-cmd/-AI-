@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { MealRecord } from '@/types'
 import { formatDateTime, toCsv, downloadFile, formatDate } from '@/utils/format'
 import { useToast } from '@/context/AppContext'

@@ -48,7 +48,7 @@ interface AuditEntry {
   result: 'success' | 'fail'
   createdAt: string
 }
-export type { AuditEntry }
+export type { AuditEntry as AuditLog }
 
 export interface DB {
   users: User[]
@@ -304,7 +304,7 @@ export async function updateRolePermissions(id: string, permissions: string[]): 
   return { ...role }
 }
 
-export function currentPermissions(): string[] {
+export async function currentPermissions(): Promise<string[]> {
   const s = getSession()
   if (!s) return []
   const db = load()

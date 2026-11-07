@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: shiliao-backend
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    # 数据库需先执行 backend/sql/schema.sql 与 data.sql（或由 sql-init 自动执行）
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:shiliao}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: assign_id
+    banner: false
+
+app:
+  jwt:
+    # 生产环境请改为环境变量 JWT_SECRET 注入的随机长串（至少 32 字符）
+    secret: ${JWT_SECRET:shiliao-dev-secret-key-please-change-in-production-0123456789}
+    expire-hours: 8
+
+logging:
+  level:
+    com.shiliao: info

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { DashboardStats } from '@/types'
 import { formatDateTime, formatNumber } from '@/utils/format'
 import { Badge, Button, Card, Skeleton } from '@/components/ui/Primitives'

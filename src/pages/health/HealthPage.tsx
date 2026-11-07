@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import * as api from '@/lib/api'
-import type { HealthRow } from '@/lib/api'
+import * as api from '@/lib/data'
+import type { HealthRow } from '@/lib/data'
 import { formatDate } from '@/utils/format'
 import { useAuth, useToast } from '@/context/AppContext'
 import { DataTable, SearchBox, Toolbar, type Column } from '@/components/ui/DataTable'

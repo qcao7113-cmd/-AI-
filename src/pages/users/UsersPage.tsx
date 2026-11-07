@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { User, RoleKey, Constitution, ChronicKey } from '@/types'
 import { CHRONIC_KEYS, CONSTITUTIONS } from '@/lib/seed'
 import { formatDate, toCsv, downloadFile } from '@/utils/format'

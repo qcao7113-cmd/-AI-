@@ -118,25 +118,76 @@ admin-console/
 
 | 类别 | 选型 |
 | --- | --- |
-| 框架 | React 18 + TypeScript |
+| 前端框架 | React 18 + TypeScript |
 | 构建 | Vite 5 |
 | 路由 | React Router v6 |
 | 样式 | 原生 CSS + CSS 变量（无 UI 框架依赖） |
 | 图表 | 手写 SVG |
-| 数据 | localStorage 模拟后端 |
+| 后端 | Spring Boot 3.3 + MyBatis-Plus + MySQL 8 |
+| 鉴权 | JWT（jjwt）+ BCrypt + 方法级权限 |
 
----
+## 后端
 
-## 接入真实后端
+后端代码在 [`backend/`](backend/)，接口与前端完全对齐。
 
-数据层集中在 `src/lib/api.ts`，每个函数已按真实接口的形态设计（async + 参数 + 分页协议）。
-只需把函数体替换为 `fetch`，调用方无需任何改动：
+```bash
+cd backend
 
-```ts
-export async function listUsers(q: UserQuery): Promise<Paginated<User>> {
-  const res = await fetch(`/api/users?page=${q.page}&pageSize=${q.pageSize}&keyword=${q.keyword}`)
-  return res.json()
-}
+# 方式一：MySQL
+mysql -u root -p < sql/schema.sql
+mysql -u root -p shiliao < sql/data.sql
+mvn spring-boot:run
+
+# 方式二：H2 内存库，免安装 MySQL
+mvn spring-boot:run -Dspring-boot.run.profiles=h2
 ```
+
+后端启动在 <http://localhost:8080>，详见 [backend/README.md](backend/README.md)。
+
+## 前后端联调
+
+前端默认使用**本地模拟数据**（`src/lib/api.ts`），无需后端即可演示。
+要切换到真实后端：
+
+```bash
+# 项目根目录创建 .env.local（可参考 .env.example）
+VITE_USE_MOCK=false
+VITE_API_BASE=http://localhost:8080
+
+npm run dev
+```
+
+切换开关在 `src/lib/data.ts`，页面代码无需任何改动——这正是数据层抽象的目的。
+
+## 目录结构补充
+
+除上文 `src/` 分层外，后端结构：
+
+```
+backend/
+├─ pom.xml
+├─ sql/                       MySQL 建表 + 种子数据
+├─ src/main/java/com/shiliao/
+│  ├─ common/                 统一响应、异常处理、字段转换
+│  ├─ config/                 MyBatis-Plus 分页 + 方法级权限
+│  ├─ security/               JWT 过滤器、安全配置、登录态
+│  ├─ controller/             7 个 REST 控制器
+│  ├─ service/                业务逻辑
+│  ├─ repository/             MyBatis-Plus Mapper
+│  ├─ entity/                 数据库实体
+│  └─ dto/                    请求/响应视图
+└─ src/main/resources/
+   ├─ application.yml         MySQL 配置（默认）
+   ├─ application-h2.yml      H2 免安装配置
+   └─ db/                     H2 建表与种子数据
+```
+
+## 接入真实后端（补充说明）
+
+前端已内置真实 API 客户端 `src/lib/http.ts`，与 `src/lib/api.ts` 函数签名完全一致。
+`src/lib/data.ts` 根据 `VITE_USE_MOCK` 自动选择实现，因此：
+
+- 想继续用模拟数据 → 不配置 `.env.local`
+- 想接 Spring Boot → 设置 `VITE_USE_MOCK=false`
 
 更多约定见 [`docs/开发指南.md`](docs/开发指南.md)。

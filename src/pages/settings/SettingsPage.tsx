@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { AppSettings } from '@/types'
 import { useAuth, useThemeEffect, useToast } from '@/context/AppContext'
 import { ROLE_LABEL } from '@/utils/permissions'

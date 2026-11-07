@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import * as api from '@/lib/api'
-import type { AuditEntry } from '@/lib/api'
+import * as api from '@/lib/data'
+import type { AuditEntry } from '@/lib/data'
 import { formatDateTime, toCsv, downloadFile, formatDate } from '@/utils/format'
 import { useToast } from '@/context/AppContext'
 import { DataTable, FilterSelect, SearchBox, Toolbar, type Column } from '@/components/ui/DataTable'

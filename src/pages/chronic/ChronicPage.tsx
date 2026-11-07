@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import * as api from '@/lib/api'
+import * as api from '@/lib/data'
 import type { ChronicPlan } from '@/types'
 import { formatDate, formatNumber } from '@/utils/format'
 import { useAuth, useToast } from '@/context/AppContext'
