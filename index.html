@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebula 运营后台</title>
+    <script>
+      // 在首屏渲染前套用主题，避免暗色模式闪白
+      try {
+        var t = JSON.parse(localStorage.getItem('nebula:settings') || '{}')
+        if (t.theme === 'dark') document.documentElement.dataset.theme = 'dark'
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

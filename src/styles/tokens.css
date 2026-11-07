@@ -1,0 +1,208 @@
+/* =====================================================================
+   Nebula Design Tokens —— 全站唯一的样式变量来源
+   所有组件只消费变量，不硬编码颜色，换肤 / 暗色模式只改这里
+   ===================================================================== */
+:root {
+  --brand: #2f8f5b;
+  --brand-strong: #24754a;
+  --brand-soft: #e7f3ec;
+  --brand-contrast: #ffffff;
+
+  --bg: #f5f3ec;
+  --surface: #ffffff;
+  --surface-2: #faf9f5;
+  --surface-3: #efeee7;
+  --border: #e6e3d9;
+  --border-strong: #d6d2c4;
+
+  --text: #26241f;
+  --text-2: #5c5a52;
+  --text-3: #918e83;
+
+  --success: #2f8f5b;
+  --success-soft: #e7f3ec;
+  --warning: #b8731c;
+  --warning-soft: #fbf1e1;
+  --danger: #c2473c;
+  --danger-soft: #fbe9e6;
+  --info: #4a7fb5;
+  --info-soft: #e9f0f7;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(58, 48, 30, 0.06);
+  --shadow: 0 4px 16px rgba(58, 48, 30, 0.08);
+  --shadow-lg: 0 18px 48px rgba(38, 30, 18, 0.18);
+
+  --sidebar-w: 236px;
+  --sidebar-w-collapsed: 68px;
+  --header-h: 60px;
+  --content-max: 1480px;
+
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  --density: 1;
+  --transition: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme='dark'] {
+  --brand: #4fae78;
+  --brand-strong: #6cc492;
+  --brand-soft: #1b3327;
+  --brand-contrast: #0c1712;
+
+  --bg: #14140f;
+  --surface: #1c1c16;
+  --surface-2: #23231c;
+  --surface-3: #2c2b23;
+  --border: #34332a;
+  --border-strong: #45443a;
+
+  --text: #ecebe2;
+  --text-2: #b0ada1;
+  --text-3: #817f73;
+
+  --success: #5cc489;
+  --success-soft: #16301f;
+  --warning: #d9a253;
+  --warning-soft: #33270f;
+  --danger: #e07064;
+  --danger-soft: #38191a;
+  --info: #6aa6d8;
+  --info-soft: #16283a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+:root[data-compact='true'] {
+  --density: 0.78;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+}
+
+/* 细滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
